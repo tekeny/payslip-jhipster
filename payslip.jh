@@ -1,0 +1,42 @@
+
+enum StatusEnum {
+    ENABLE, DISABLE
+}
+
+entity Status {   
+	code StatusEnum,
+    date String
+}
+
+entity User2 {
+  userId String,
+  userLogin String,
+  date String
+}
+
+entity Emittor {
+	id String,
+	code String,
+	companyName String required maxlength(48) pattern(/[a-zA-Z0-9 ]/),
+	companySiret String required minlength(14) maxlength(14) pattern(/[0-9]/),
+	login String required pattern(/[a-zA-Z0-9.-_]/)
+    canEmit Boolean,
+    canEmitSince String,
+    lastStatus Status,
+    createdBy User2,
+    modifiedBy User2
+}
+
+relationship ManyToOne {
+	Emittor{createdBy} to User
+    Emittor{modifiedBy} to User
+}
+
+// Set pagination options
+paginate Emittor with pagination
+
+// Use Data Transfert Objects (DTO)
+dto User with mapstruct
+
+// Set service options to all except few
+service Emittor with serviceClass
