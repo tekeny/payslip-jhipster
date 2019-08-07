@@ -1,0 +1,83 @@
+{
+    "name": "Emittor",
+    "fields": [
+        {
+            "fieldName": "code",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "companyName",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMaxlength": 48,
+            "fieldValidateRulesPattern": "[a-zA-Z0-9 ]"
+        },
+        {
+            "fieldName": "companySiret",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "minlength",
+                "maxlength",
+                "pattern"
+            ],
+            "fieldValidateRulesMinlength": 14,
+            "fieldValidateRulesMaxlength": 14,
+            "fieldValidateRulesPattern": "[0-9]"
+        },
+        {
+            "fieldName": "login",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "[a-zA-Z0-9.-_]"
+        },
+        {
+            "fieldName": "canEmit",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "canEmitSince",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "status",
+            "otherEntityRelationshipName": "emittor",
+            "relationshipName": "lastStatus",
+            "otherEntityField": "id",
+            "ownerSide": true
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user2",
+            "otherEntityRelationshipName": "emittor",
+            "relationshipName": "createdBy",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "user2",
+            "otherEntityRelationshipName": "emittor",
+            "relationshipName": "modifiedBy",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20190807101433",
+    "entityTableName": "emittor",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceClass",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

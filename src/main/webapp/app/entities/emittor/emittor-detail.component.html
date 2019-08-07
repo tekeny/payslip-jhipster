@@ -1,0 +1,65 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="emittor">
+            <h2><span>Emittor</span> {{emittor.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span>Code</span></dt>
+                <dd>
+                    <span>{{emittor.code}}</span>
+                </dd>
+                <dt><span>Company Name</span></dt>
+                <dd>
+                    <span>{{emittor.companyName}}</span>
+                </dd>
+                <dt><span>Company Siret</span></dt>
+                <dd>
+                    <span>{{emittor.companySiret}}</span>
+                </dd>
+                <dt><span>Login</span></dt>
+                <dd>
+                    <span>{{emittor.login}}</span>
+                </dd>
+                <dt><span>Can Emit</span></dt>
+                <dd>
+                    <span>{{emittor.canEmit}}</span>
+                </dd>
+                <dt><span>Can Emit Since</span></dt>
+                <dd>
+                    <span>{{emittor.canEmitSince}}</span>
+                </dd>
+                <dt><span>Last Status</span></dt>
+                <dd>
+                    <div *ngIf="emittor.lastStatus">
+                        <a [routerLink]="['/status', emittor.lastStatus?.id, 'view']">{{emittor.lastStatus?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Created By</span></dt>
+                <dd>
+                    <div *ngIf="emittor.createdBy">
+                        <a [routerLink]="['/user-2', emittor.createdBy?.id, 'view']">{{emittor.createdBy?.id}}</a>
+                    </div>
+                </dd>
+                <dt><span>Modified By</span></dt>
+                <dd>
+                    <div *ngIf="emittor.modifiedBy">
+                        <a [routerLink]="['/user-2', emittor.modifiedBy?.id, 'view']">{{emittor.modifiedBy?.id}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/emittor', emittor.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
