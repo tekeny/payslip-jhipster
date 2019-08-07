@@ -1,0 +1,117 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+            <h2 id="jhi-emittor-heading">Create or edit a Emittor</h2>
+            <div>
+                <jhi-alert-error></jhi-alert-error>
+                <div class="form-group" [hidden]="!editForm.get('id').value">
+                    <label for="id">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" formControlName="id"
+                        readonly />
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_code">Code</label>
+                    <input type="text" class="form-control" name="code" id="field_code"
+                           formControlName="code"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_companyName">Company Name</label>
+                    <input type="text" class="form-control" name="companyName" id="field_companyName"
+                           formControlName="companyName"/>
+                    <div *ngIf="editForm.get('companyName').invalid && (editForm.get('companyName').dirty || editForm.get('companyName').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companyName').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companyName').errors.maxlength">
+                        This field cannot be longer than 48 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companyName').errors.pattern">
+                            This field should follow pattern for "Company Name".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_companySiret">Company Siret</label>
+                    <input type="text" class="form-control" name="companySiret" id="field_companySiret"
+                           formControlName="companySiret"/>
+                    <div *ngIf="editForm.get('companySiret').invalid && (editForm.get('companySiret').dirty || editForm.get('companySiret').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companySiret').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companySiret').errors.minlength">
+                        This field is required to be at least 14 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companySiret').errors.maxlength">
+                        This field cannot be longer than 14 characters.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('companySiret').errors.pattern">
+                            This field should follow pattern for "Company Siret".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_login">Login</label>
+                    <input type="text" class="form-control" name="login" id="field_login"
+                           formControlName="login"/>
+                    <div *ngIf="editForm.get('login').invalid && (editForm.get('login').dirty || editForm.get('login').touched)">
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('login').errors.required">
+                        This field is required.
+                        </small>
+                        <small class="form-text text-danger"
+                               *ngIf="editForm.get('login').errors.pattern">
+                            This field should follow pattern for "Login".
+                        </small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_canEmit">Can Emit</label>
+                    <input type="checkbox" class="form-control" name="canEmit" id="field_canEmit"
+                           formControlName="canEmit"/>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_canEmitSince">Can Emit Since</label>
+                    <input type="text" class="form-control" name="canEmitSince" id="field_canEmitSince"
+                           formControlName="canEmitSince"/>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-control-label" for="field_lastStatus">Last Status</label>
+                    <select class="form-control" id="field_lastStatus" name="lastStatus" formControlName="lastStatus">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="statusOption.id === editForm.get('lastStatus').value?.id ? editForm.get('lastStatus').value : statusOption" *ngFor="let statusOption of laststatuses; trackBy: trackStatusById">{{statusOption.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_createdBy">Created By</label>
+                    <select class="form-control" id="field_createdBy" name="createdBy" formControlName="createdBy">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="user2Option.id === editForm.get('createdBy').value?.id ? editForm.get('createdBy').value : user2Option" *ngFor="let user2Option of user2s; trackBy: trackUser2ById">{{user2Option.id}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-control-label" for="field_modifiedBy">Modified By</label>
+                    <select class="form-control" id="field_modifiedBy" name="modifiedBy" formControlName="modifiedBy">
+                        <option [ngValue]="null"></option>
+                        <option [ngValue]="user2Option.id === editForm.get('modifiedBy').value?.id ? editForm.get('modifiedBy').value : user2Option" *ngFor="let user2Option of user2s; trackBy: trackUser2ById">{{user2Option.id}}</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <button type="button" id="cancel-save" class="btn btn-secondary"  (click)="previousState()">
+                    <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span>Cancel</span>
+                </button>
+                <button type="submit" id="save-entity" [disabled]="editForm.invalid || isSaving" class="btn btn-primary">
+                    <fa-icon [icon]="'save'"></fa-icon>&nbsp;<span>Save</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
